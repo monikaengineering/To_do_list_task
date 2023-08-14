@@ -1,25 +1,27 @@
-document.querySelector('#push').onclick = function(){
-    if(document.querySelector('#newtask input').value.length == 0){
-        alert("Please Enter a Task")
-    }
+window.onload = function(){
+    let task = document.querySelector(".input-box");
+    let list = document.querySelector(".line");
+    let addTask = document.querySelector(".btn");
 
-    else{
-        document.querySelector('#tasks').innerHTML += `
-            <div class="task">
-                <span id="taskname">
-                    ${document.querySelector('#newtask input').value}
-                </span>
-                <button class="delete">
-                    <i class="far fa-trash-alt"></i>
-                </button>
-            </div>
-        `;
+    addTask.addEventListener("click", ()=>{
+        list.insertAdjacentHTML(
+            `afterbegin`,
+            `<li>
+                   <i class="fas fa-trash deleteTask"></i>
 
-        var current_tasks = document.querySelectorAll(".delete");
-        for(var i=0; i<current_tasks.length; i++){
-            current_tasks[i].onclick = function(){
-                this.parentNode.remove();
-            }
-        }
-    }
-}
+                   <h4>${task.value}</h4>
+            </li>`
+        );
+
+        task.value = "";
+
+        let deleteTask = document.querySelectorAll(".deleteTask");
+
+        deleteTask.forEach((del) =>{
+            del.addEventListener("click", ()=>{
+                del.parentElement.remove();
+
+            });
+        });
+    });
+};
